@@ -1,0 +1,52 @@
+upstream backend {
+    server {ELECTRS_HTTP_HOST}:{ELECTRS_HTTP_PORT};
+    keepalive 300;
+}
+
+server {
+    listen 80;
+    keepalive_requests 100000;
+    gzip on;
+    gzip_types application/json text/plain application/xml application/javascript;
+    gzip_proxied any;
+    gzip_vary on;
+    root {STATIC_DIR};
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 650s;
+    server_tokens off;
+
+    # client timeouts
+    client_body_timeout 5s;
+    client_header_timeout 5s;
+
+    add_header X-Frame-Options SAMEORIGIN always;
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; object-src 'none'" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "no-referrer" always;
+
+    location /api/ {
+        proxy_pass http://backend/;
+        add_header Access-Control-Allow-Origin * always;
+        add_header Access-Control-Expose-Headers 'x-total-results';
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+    }
+
+    location ~ ^/((tx|block|block-height|address)/|[a-zA-Z0-9]+$) {
+        expires 60m;
+        try_files $uri /index.html;
+    }
+
+    location / {
+        expires 60m;
+        try_files $uri /index.html;
+    }
+
+    error_page 404 /notfound.html;
+    location = /notfound.html {
+        internal;
+    }
+}

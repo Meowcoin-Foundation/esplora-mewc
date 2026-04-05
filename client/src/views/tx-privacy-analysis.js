@@ -44,14 +44,14 @@ const messages = {
 , 'self-transfer': [
     'info'
   , 'Possibly self-transfer'
-  , 'Sending exact amounts (with no change) gives an indication that the bitcoins possibly didn\'t change hands. It could also mean the change was small enough to waive it.'
+  , 'Sending exact amounts (with no change) gives an indication that the coins possibly didn\'t change hands. It could also mean the change was small enough to waive it.'
   , 'https://en.bitcoin.it/wiki/Privacy#Exact_payment_amounts_.28no_change.29'
   ]
 
 , 'coinjoin-equal-outputs': [
     'success'
   , 'Possibly a CoinJoin transaction'
-  , 'CoinJoin transactions hide the link between inputs and outputs and improves Bitcoin\'s overall privacy and fungibility for everyone.'
+  , 'CoinJoin transactions hide the link between inputs and outputs and improve overall privacy and fungibility for everyone.'
   , 'https://en.bitcoin.it/wiki/Privacy#CoinJoin'
   ]
 }

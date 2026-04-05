@@ -8,7 +8,7 @@ import { nativeAssetId } from './const'
 const BLIND_PREFIX = +process.env.BLIND_PREFIX || 0x0c
     , reHash256 = /^[a-f0-9]{64}$/i
     , reBech32 = /^[a-z]{1,83}1[ac-hj-np-z02-9]{6,100}$/
-    , qrPrefix = process.env.IS_ELEMENTS ? 'liquidnetwork' : 'bitcoin'
+    , qrPrefix = process.env.IS_ELEMENTS ? 'liquidnetwork' : (process.env.QR_PREFIX || 'meowcoin')
 
 // not null or undefined
 export const notNully = x => x != null
