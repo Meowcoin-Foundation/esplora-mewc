@@ -2,7 +2,7 @@
 FROM node:18-slim AS build
 
 RUN apt-get -yqq update \
- && apt-get -yqq install python3 make g++ \
+ && apt-get -yqq install python3 make g++ git \
  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /srv/explorer/source
